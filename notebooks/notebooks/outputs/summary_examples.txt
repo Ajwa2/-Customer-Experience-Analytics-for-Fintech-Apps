@@ -1,0 +1,15 @@
+=== Theme: Other ===
+- (1) [neg -0.4015] i don't find it good and now it is not working!
+- (2) [neu 0.0] Make the reason we wrote visible on app transaction.
+- (1) [neu 0.0] app is note active working crash
+
+=== Theme: User Interface & Experience ===
+- (2) [neu 0.0] Make the reason we wrote visible on app transaction.
+- (1) [neu 0.0] app is note active working crash
+- (1) [neg -0.8834] I cant belive I could find the worst bank app ever .yet very simple to fix the problem and the company just ignored it. no body can do business with this kind of app.
+
+=== Theme: Transaction Performance ===
+- (1) [pos 0.4969] i m sorry but it doesn't work for my android it is too slow but other bank are very fast please update
+- (1) [neu -0.0258] I kindly request that Bank of abyssinia address issues with its mobile app. It is very slow, has numerous problems, and frequently experiences downtime. The user experience is also poor. Thank you.
+- (1) [neg -0.9107] the worst bank ever. slow don't accept dual sim. they are very stupid and greedy
+
