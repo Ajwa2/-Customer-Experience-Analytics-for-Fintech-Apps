@@ -44,15 +44,23 @@ def main():
     # load bank mapping
     with engine.connect() as conn:
         res = conn.execute(text('SELECT bank_id, bank_name FROM banks'))
-        mapping = {row['bank_name']: row['bank_id'] for row in res}
+        # result rows may be tuples depending on DB driver; map by index for safety
+        mapping = {row[1]: row[0] for row in res}
 
     # if some banks missing, insert them
     bank_names = df['bank'].dropna().unique().tolist()
     with engine.begin() as conn:
         for b in bank_names:
             if b not in mapping:
-                r = conn.execute(text('INSERT INTO banks (bank_name, app_name) VALUES (:b, NULL) RETURNING bank_id'), {'b': b})
-                mapping[b] = r.fetchone()['bank_id']
+                # dialect-aware insert (SQLite vs Postgres)
+                if engine.dialect.name == 'sqlite':
+                    conn.execute(text('INSERT OR IGNORE INTO banks (bank_name, app_name) VALUES (:b, NULL)'), {'b': b})
+                else:
+                    conn.execute(text('INSERT INTO banks (bank_name, app_name) VALUES (:b, NULL) ON CONFLICT (bank_name) DO NOTHING'), {'b': b})
+                # fetch bank_id
+                sel = conn.execute(text('SELECT bank_id FROM banks WHERE bank_name = :b'), {'b': b})
+                row = sel.fetchone()
+                mapping[b] = row[0] if row is not None else None
 
     print('Bank mapping:', mapping)
 
